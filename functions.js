@@ -1,6 +1,7 @@
 function play(button) {
     document.getElementById("playerH1").innerHTML = "You chose: " + button;
-    var computerresult = randomIntegerD();
+    var computerresult = Math.floor(Math.random() * 3);
+    var counter = 0;
 
     console.log("Computer pressed: " + computerresult);
 
@@ -24,31 +25,19 @@ function play(button) {
     var roundresult = logic(button, computerresult);
     if (roundresult == 1) {
         document.getElementById("roundH1").innerHTML = "Round result: Player wins";
+        counter = score("Round result: Player wins");
     }
-    if (roundresult == 2)
+    if (roundresult == 2) {
         document.getElementById("roundH1").innerHTML = "Round result: Computer wins";
-    if (roundresult == 0) document.getElementById("roundH1").innerHTML = "Round result: tie";
-}
-
-
-
-//Done
-function randomIntegerD() {
-    var rand;
-    var temp = Math.random();
-    console.log("Random raw result: " + temp);
-
-    if (temp < 0.3) {
-        rand = 0;
-    }
-    if (0.3 <= temp && temp <= 0.6) {
-        rand = 1;
-    }
-    if (0.6 < temp && temp < 1) {
-        rand = 2;
+        counter = score("Round result: Computer wins");
     }
 
-    return rand;
+    if (roundresult == 0) {
+        document.getElementById("roundH1").innerHTML = "Round result: Tie";
+        counter = score("Round result: Tie");
+    }
+
+
 }
 
 //Done
@@ -104,4 +93,10 @@ function logic(input1, input2) {
                 return -1;
         }
     }
+}
+
+function score(newResult) {
+
+    var htmlTable = document.getElementById("scoretable");
+    htmlTable.innerHTML = htmlTable.innerHTML + "<li class='list-group-item'>" + newResult + "</li>";
 }
